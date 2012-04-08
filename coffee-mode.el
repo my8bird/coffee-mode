@@ -239,6 +239,10 @@ called `coffee-compiled-buffer-name'."
 ;; Assignment
 (defvar coffee-assign-regexp "\\(\\(\\w\\|\\.\\|_\\|$\\)+?\s*\\):")
 
+;; Variable assignment, someVar = something, someObj.member = someting
+;; or [var1, var2] = something
+(defvar coffee-var-assign-regexp "\\s *\\(.+\\)\\s *=")
+
 ;; Lambda
 (defvar coffee-lambda-regexp "\\((.+)\\)?\\s *\\(->\\|=>\\)")
 
@@ -250,6 +254,9 @@ called `coffee-compiled-buffer-name'."
 
 ;; Regular Expressions
 (defvar coffee-regexp-regexp "\\/\\(\\\\.\\|\\[\\(\\\\.\\|.\\)+?\\]\\|[^/]\\)+?\\/")
+
+;; Functions
+(defvar coffee-cs-function-regexp "\\s *\\([^ ]+\\)\\s *=\\s *\\(([^)]*)\\)?\\s *\\(->\\|=>\\)")
 
 ;; JavaScript Keywords
 (defvar coffee-js-keywords
@@ -289,7 +296,10 @@ called `coffee-compiled-buffer-name'."
     (,coffee-assign-regexp . font-lock-type-face)
     (,coffee-regexp-regexp . font-lock-constant-face)
     (,coffee-boolean-regexp . font-lock-constant-face)
-    (,coffee-keywords-regexp . font-lock-keyword-face)))
+    (,coffee-cs-function-regexp . (1 font-lock-function-name-face))
+    (,coffee-cs-function-regexp . (3 font-lock-function-name-face))
+    (,coffee-keywords-regexp . font-lock-keyword-face)
+    (,coffee-var-assign-regexp . (1 font-lock-type-face))))
 
 ;;
 ;; Helper Functions
